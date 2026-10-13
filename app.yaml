@@ -1,0 +1,33 @@
+# CI service configuration for the p2o-dashboard workspace.
+# This repository hosts a static HTML dashboard (no build step). The config
+# below is consumed by Swiggy CI as the service descriptor and serves the
+# dashboard as a static asset.
+runtime: python312
+env: standard
+service: p2o-dashboard
+
+handlers:
+  - url: /P2O_Dashboard_Snowflake\.html
+    static_files: P2O_Dashboard_Snowflake.html
+    upload: P2O_Dashboard_Snowflake.html
+    secure: always
+    mime_type: text/html
+  - url: /index\.html
+    static_files: index.html
+    upload: index.html
+    secure: always
+    mime_type: text/html
+  - url: /$
+    static_files: P2O_Dashboard_Snowflake.html
+    upload: P2O_Dashboard_Snowflake.html
+    secure: always
+    mime_type: text/html
+
+# Static HTML only — minimal footprint.
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+
+login: optional
